@@ -34,8 +34,9 @@ class DecksList extends React.Component {
                 </View>
                 {decks ?
                     Object.keys(decks).map((deck) =>
-                        <Deck deck={deck} navigation={navigation} key={deck} />)
+                        <Deck deck={decks[deck]} navigation={navigation} key={deck} />)
                     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>}
+                
                 <View style={styles.addDeck}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('AddDeck')}>
                         <Text style={{ fontSize: 20, color: 'white' }}>Add</Text>
@@ -48,16 +49,14 @@ class DecksList extends React.Component {
 
 
 {/* <FlatList style={styles.deckList}
-                    data={decks ? decks : []}
-                    renderItem={decks ? ({item}) => <Deck deck={item} navigation={navigation} key={item.title} />
-                        : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>} >
-                </FlatList> */}
-// {decks ?
-//     Object.keys(decks).map((deck) =>
-//         <Deck deck={deck} navigation={navigation} key={deck} />)
-
-//     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>} 
-
+                    data={decks}
+                    renderItem={(item) => <Deck deck={decks[item]} navigation={navigation} key={item} />
+                     } > */}
+                // {decks ?
+                //     Object.keys(decks).map((deck) =>
+                //         <Deck deck={deck} questions={deck} navigation={navigation} key={deck} />)
+                //     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>}
+                
 
 const styles = StyleSheet.create({
     decks: {

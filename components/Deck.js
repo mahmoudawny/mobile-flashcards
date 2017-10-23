@@ -23,12 +23,12 @@ class Deck extends React.Component {
         console.log(deck)
         if(deck) return (
             <TouchableOpacity onPress={() =>
-                navigation.navigate('DeckDetails', {title: deck})}>
+                navigation.navigate('DeckDetails', {title: deck.title})}>
             
             <View style={styles.deck}>
-                <Text style={styles.header}>{deck}</Text>
+                <Text style={styles.header}>{deck.title}</Text>
                 <Text>Number of questions: {deck ?
-                    deck.questions ? deck.questions.count() : '0'
+                    deck.questions ? deck.questions.length : '0'
                     : '0'}</Text>
                               
             </View>
