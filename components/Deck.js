@@ -6,6 +6,9 @@ import { getDeck } from '../utils/helpers'
 import { connect } from 'react-redux'
 import AddCard from './AddCard'
 
+
+//Todo: get number of questions
+
 class Deck extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
@@ -20,10 +23,10 @@ class Deck extends React.Component {
         console.log(deck)
         if(deck) return (
             <TouchableOpacity onPress={() =>
-                navigation.navigate('DeckDetails', {title: deck.title})}>
+                navigation.navigate('DeckDetails', {title: deck})}>
             
             <View style={styles.deck}>
-                <Text>{deck.title}</Text>
+                <Text style={styles.header}>{deck}</Text>
                 <Text>Number of questions: {deck ?
                     deck.questions ? deck.questions.count() : '0'
                     : '0'}</Text>
@@ -39,6 +42,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    header: {
+        fontSize: 20,
+        backgroundColor: '#eee',
+        borderRadius: 10,
+        padding: 10
+      },
 });
 
 // function mapStateToProps(state, {navigation}) {
