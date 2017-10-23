@@ -9,14 +9,22 @@ import { receiveDecks } from '../actions'
 
 class DecksList extends React.Component {
 
+    state = {
+        ready: false
+    }
+
     componentDidMount() {
         getDecks()
             .then((result) => this.props.receiveDecks(result))
+            .then(() => this.setState({ready: true}))
     }
 
     render() {
         const { decks, navigation } = this.props
-        console.log(decks)
+        const {ready} = this.state
+        if(ready === false) {
+          return <AppLoading/>
+        }
         return (
             <View style={styles.decks}>
                 <View>
@@ -74,7 +82,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps({ decks }) {
-    return decks
+    return {decks}
 }
 
 function mapDispatchToProps(dispatch) {

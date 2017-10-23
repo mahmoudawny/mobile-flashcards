@@ -7,16 +7,14 @@ const DECKS = 'mobile-flashcards:decks'
 const NOTIFICATION_KEY = "mobile-flashcards:notifications"
 
 export function getDecks(){
-    return AsyncStorage.getItem(DECKS, (error, res) => {
-        if(!error) JSON.parse(res)
-    })
-   
+    return AsyncStorage.getItem(DECKS)
+    .then((res) => JSON.parse(res))
+  
 }
 
 export function getDeck(key){
-    return AsyncStorage.getItem(DECKS, (error, res) => {
-        if(!error) return res[key]
-    })
+  return AsyncStorage.getItem(DECKS)
+  .then((res) => JSON.parse(res[key]))
 }
 
 export function saveDeckTitle(title){
@@ -30,7 +28,7 @@ export function saveDeckTitle(title){
 export function addCardToDeck(title, question){
     return AsyncStorage.mergeItem(DECKS, 
       JSON.stringify({[title]: { questions: [...questions, question]}}),
-       (error, res) => {
+       (error) => {
         if(error) console.log("error adding card", error)
     })
 }
