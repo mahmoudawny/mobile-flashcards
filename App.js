@@ -5,20 +5,26 @@ import { AppLoading } from 'expo'
 import DecksList from './components/DecksList'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import { createStore } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import { getDecks } from './utils/helpers'
 import AddDeck from './components/AddDeck'
+import DeckDetails from './components/DeckDetails'
+import AddCard from './components/AddCard'
+import Deck from './components/Deck'
+import logger from 'redux-logger'
+import thunk from 'redux-thunk'
+
+
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, composeEnhancers(
+applyMiddleware(thunk), applyMiddleware(logger)))
 
 class App extends React.Component {
 
-  componentDidMount() {
-    getDecks()
-  }
-
   render() {
-    const { decks } = this.props
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={styles.app}>
           <View style={styles.statusBar}>
             <StatusBar translucent backgroundColor='pink' barStyle='dark-content' />
@@ -45,13 +51,29 @@ const Stack = StackNavigator({
       }
     }
   },
+  Deck: {
+    screen: Deck,
+
+  },
   AddDeck: {
     screen: AddDeck,
     navigationOptions: {
       title: "Add Deck",
 
     }
-  }
+  },
+  DeckDetails: {
+    screen: DeckDetails,
+    navigationOptions: {
+      title: ""
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: "New Card"
+    }
+  },
 })
 
 const styles = StyleSheet.create({
@@ -67,7 +89,7 @@ const styles = StyleSheet.create({
     //flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     margin: 25
   },
   header: {

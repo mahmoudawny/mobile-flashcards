@@ -2,15 +2,29 @@ import React from 'react'
 import { TextInput, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
-import dispatch from '../actions'
-import { saveDeckTitle } from '../utils/helpers'
+import {addQuestion, receiveDeck} from '../actions'
+import { addCardToDeck, getDeck } from '../utils/helpers'
 import {connect} from 'react-redux'
 
 
 class AddCard extends React.Component {
-    add = () => {
-        this.props.setTitle()
-        saveDeckTitle
+
+    static navigationOptions = ({ navigation }) => {
+        const { title } = navigation.state.params
+        return ({
+            title: title.toString() + ' New Card'
+        })
+    }
+
+    state = {
+        question: '',
+        answer: ''
+    }
+
+    addCard = ({ navigation }) => {
+        const {question, answer} = this.state
+        const { title } = navigation.state.params
+        addCardToDeck(title, {question, answer}).then((result) => this.props.addQuestion(title, {question, answer}))        
     }
 
     render() {
@@ -18,10 +32,14 @@ class AddCard extends React.Component {
         return (
             <View style={styles.deck}>
                 <TextInput autoCapitalize='true' autoFocus='true'
-                blurOnSubmit='true' maxLength='50' placeholder='Enter the title and click Add'
-                defaultValue=''/>
-                
-                <TouchableOpacity onPress={this.add}>
+                blurOnSubmit='true' maxLength='100' placeholder='Enter the question and click Add'
+                value={this.state.question}/>
+                <TextInput autoCapitalize='true'
+                blurOnSubmit='true' maxLength='100' 
+                placeholder='Enter the answer and click Add'
+                value={this.state.answer}
+                />
+                <TouchableOpacity onPress={this.addQuestion}>
                     <Text>Add</Text>
                 </TouchableOpacity>
             </View>
@@ -38,16 +56,17 @@ const styles = StyleSheet.create({
     },
 });
 
-function mapStateToProps(state) {
+function mapStateToProps(state, {navigation}) {
+    const { title } = navigation.state.params
     return {
-
+        deck: state[title]
     }
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
     return {
-        getDecks: () => dispatch.getDecks(),
-        addDeck: () => dispatch.setTitle()
+        receiveDeck: (data) => dispatch(receiveDeck(data)),
+        addQuestion: (data) => dispatch(addQuestion(data))
     }
 }
 

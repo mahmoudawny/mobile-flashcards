@@ -1,20 +1,20 @@
 import { combineReducers } from 'redux'
 import { ADD_QUESTION, GET_DECK, GET_DECKS, SET_TITLE } from '../actions'
 import React from 'react'
-export function deck(state = null, action) {
-    const { type, deck, question, title } = action
+export function decks(state = {}, action) {
+    const { decks, type, deck, question, title } = action
     switch (type) {
         case GET_DECK:
             return {
-                state: state[deck]
+                state: state[title]
             }
         case GET_DECKS:
-            return state
+            return decks
         case SET_TITLE:
             return {
                 state: {
                     ...state,
-                    title
+                    [title]: {title, questions: []}
                 }
             }
         case ADD_QUESTION:
@@ -29,4 +29,4 @@ export function deck(state = null, action) {
     }
 }
 
-export default combineReducers({deck})
+export default combineReducers({decks})

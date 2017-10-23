@@ -5,13 +5,14 @@ export const GET_DECK = 'GET_DECK'
 export const SET_TITLE = 'SET_TITLE'
 export const ADD_QUESTION = 'ADD_QUESTION'
 
-export function getDecks(){
+export function receiveDecks(decks){
     return {
-        type: GET_DECKS
+        type: GET_DECKS,
+        decks
     }
 }
 
-export function getDeck(key){
+export function receiveDeck(key){
     return {
         type: GET_DECK,
         key
@@ -25,7 +26,7 @@ export function setTitle(title){
     }
 }
 
-export function addQuestion({question}){
+export function addQuestion(question){
     return {
         type: ADD_QUESTION,
         question

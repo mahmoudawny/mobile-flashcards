@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
-import {setTitle} from '../actions'
+import { setTitle, getDeck } from '../actions'
 import { saveDeckTitle } from '../utils/helpers'
 import { connect } from 'react-redux'
 
@@ -16,8 +16,11 @@ class AddDeck extends React.Component {
     }
 
     add = () => {
-        //this.props.addDeck(this.state.title)
-        saveDeckTitle(this.state.title)
+
+        if (this.state.title)
+            saveDeckTitle(this.state.title)
+                .then((result) => this.props.addDeck(this.state.title))
+        this.props.goBack()
     }
 
     render() {
@@ -41,7 +44,6 @@ class AddDeck extends React.Component {
 
 const styles = StyleSheet.create({
     deck: {
-        flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
@@ -59,11 +61,18 @@ const styles = StyleSheet.create({
     },
 });
 
-
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
+    const { title } = state
     return {
-        addDeck: (data) => dispatch(setTitle(data))
+        deck: state[title]
     }
 }
 
-export default connect( mapDispatchToProps)(AddDeck)
+function mapDispatchToProps(dispatch, { navigation }) {
+    return {
+        addDeck: (data) => dispatch(setTitle(data)),
+        goBack: () => navigation.goBack()
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)

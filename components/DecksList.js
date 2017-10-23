@@ -1,21 +1,32 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
-import { getDeck, addCardToDeck } from '../utils/helpers'
+import { getDecks, deleteAll } from '../utils/helpers'
 import { connect } from 'react-redux'
 import Deck from './Deck'
+import { receiveDecks } from '../actions'
 
 class DecksList extends React.Component {
 
+    componentDidMount() {
+        getDecks()
+            .then((result) => this.props.receiveDecks(result))
+    }
+
     render() {
-        const { decks } = this.props
+        const { decks, navigation } = this.props
+        console.log(decks)
         return (
             <View style={styles.decks}>
+                <View>
+                    <TouchableOpacity onPress={() => deleteAll()}>
+                        <Text style={{ fontSize: 20, color: 'white' }}>Delete All</Text>
+                    </TouchableOpacity>
+                </View>
                 {decks ?
                     Object.keys(decks).map((deck) =>
-                        <Deck deck={deck} key={deck} />)
-
+                        <Deck deck={deck} navigation={navigation} key={deck} />)
                     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>}
                 <View style={styles.addDeck}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('AddDeck')}>
@@ -27,19 +38,31 @@ class DecksList extends React.Component {
     }
 }
 
+
+{/* <FlatList style={styles.deckList}
+                    data={decks ? decks : []}
+                    renderItem={decks ? ({item}) => <Deck deck={item} navigation={navigation} key={item.title} />
+                        : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>} >
+                </FlatList> */}
+// {decks ?
+//     Object.keys(decks).map((deck) =>
+//         <Deck deck={deck} navigation={navigation} key={deck} />)
+
+//     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>} 
+
+
 const styles = StyleSheet.create({
     decks: {
-        //flex: 1,
         backgroundColor: '#ddd',
         alignItems: 'center',
         justifyContent: 'center',
     },
     deckList: {
         margin: 10,
-        justifyContent: 'center',
+        //justifyContent: 'center',
     },
     addDeck: {
-        backgroundColor: '#aba',
+        backgroundColor: '#998',
         borderRadius: 10,
         padding: 10,
         margin: 10
@@ -50,4 +73,14 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect()(DecksList)
+function mapStateToProps({ decks }) {
+    return decks
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        receiveDecks: (data) => dispatch(receiveDecks(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DecksList)
