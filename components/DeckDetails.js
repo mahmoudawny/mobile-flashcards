@@ -6,6 +6,7 @@ import { getDeck, addCardToDeck } from '../utils/helpers'
 import { connect } from 'react-redux'
 import AddCard from './AddCard'
 import { receiveDeck, addQuestion } from '../actions'
+import CardDetails from './CardDetails'
 
 //TODO: render Decks as list and check the need to create a second stack for Deck and DeckDetails
 class DeckDetails extends React.Component {
@@ -30,19 +31,19 @@ class DeckDetails extends React.Component {
     }
 
     render() {
-        const { deck, navigation } = this.props
-        if (!this.state.ready)
+        const {  navigation } = this.props
+        const {  decks } = this.props.decks
+        if (!this.state.ready && !decks)
             <AppLoading />
+        
         return (
             <View style={styles.deck}>
-
-                <Text>{deck ? deck.title : ''}</Text>
-                <Text>Number of questions: {deck ?
-                    deck.questions ? deck.questions.length : '0'
-                    : '0'}</Text>
+                <Text>{decks.title}</Text>
+                <Text>Number of questions: {decks.questions.length}</Text>
+                    <CardDetails navigation={navigation}/>
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() =>
-                        navigation.navigate('AddCard', { title: deck.title + ' New Card' })}>
+                        navigation.navigate('AddCard', { title: decks.title})}>
                         <Text>
                             Add Question
                     </Text>
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 10
     },
     button: {
         backgroundColor: '#aba',
@@ -67,10 +69,12 @@ const styles = StyleSheet.create({
     },
 });
 
-function mapStateToProps({ decks }, { navigation }) {
+function mapStateToProps(decks, { navigation }) {
     const { title } = navigation.state.params
     return {
-        deck: decks[title]
+        decks,
+        // title,
+        // navigation
     }
 }
 

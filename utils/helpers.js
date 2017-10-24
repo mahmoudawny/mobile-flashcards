@@ -1,54 +1,72 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, 
-    AsyncStorage } from 'react-native'
-import {Permissions, Notifications} from 'expo'
+import {
+  StyleSheet, Text, View, TouchableOpacity,
+  AsyncStorage
+} from 'react-native'
+import { Permissions, Notifications } from 'expo'
 
 const DECKS = 'mobile-flashcards:decks'
 const NOTIFICATION_KEY = "mobile-flashcards:notifications"
 
-export function getDecks(){
-    return AsyncStorage.getItem(DECKS)
-    .then((res) => JSON.parse(res))
-  
-}
-
-export function getDeck(key){
+export function getDecks() {
   return AsyncStorage.getItem(DECKS)
-  .then((res) => {JSON.parse(res[JSON.stringify(key)])
-  console.log(JSON.parse(res[key]))})
+    .then((res) => JSON.parse(res))
+
 }
 
-export function saveDeckTitle(title){
-    return AsyncStorage.mergeItem(DECKS,
-      JSON.stringify({[title]: {title, questions: []}}), 
-         (error) => {
-        if(error) console.log("error saving title", error)
+export function getDeck(key) {
+  return AsyncStorage.getItem(DECKS)
+    .then((res) => {
+      const data = JSON.parse(res)
+      return data[key]
+      console.log(data)
     })
 }
 
-export function addCardToDeck(title, question){
-    return AsyncStorage.mergeItem(DECKS, 
-      JSON.stringify({[title]: { questions: [...questions, question]}}),
-       (error) => {
-        if(error) console.log("error adding card", error)
+export function saveDeckTitle(title) {
+  return AsyncStorage.mergeItem(DECKS,
+    JSON.stringify({ [title]: { title, questions: [] } }),
+    (error) => {
+      if (error) console.log("error saving title", error)
     })
 }
 
-export function deleteAll(){
+// export function addCardToDeck(title, question) {
+//   return AsyncStorage.getItem(DECKS)
+//     .then((res) => {
+//       const data = JSON.parse(res[title])
+//       AsyncStorage.mergeItem(DECKS,
+//         JSON.stringify({ [title]: { questions: data.questions.concat(question) } }),
+//         (error) => {
+//           if (error) console.log("error adding card", error)
+//         })
+//     })
+// }
+
+
+export function addCardToDeck(title, question) {
+  return AsyncStorage.mergeItem(DECKS,
+        JSON.stringify({ [title]: {title, 'questions': [question] } }),
+        (error) => {
+          if (error) console.log("error adding card", error)
+        })
+}
+
+export function deleteAll() {
   return AsyncStorage.setItem(DECKS,
-       JSON.stringify({}), 
-       (error) => {
-      if(error) console.log("error deleting", error)
-  })
+    JSON.stringify({}),
+    (error) => {
+      if (error) console.log("error deleting", error)
+    })
 }
 
 
-export function clearNotifications(){
+export function clearNotifications() {
   AsyncStorage.removeItem(NOTIFICATION_KEY)
-  .then(() => Notifications.cancelAllScheduledNotificationsAsync())
+    .then(() => Notifications.cancelAllScheduledNotificationsAsync())
 }
 
-function createNotification(){
+function createNotification() {
   return {
     title: "Log today's data",
     body: "don't forget to log your data today!",
@@ -64,13 +82,13 @@ function createNotification(){
   }
 }
 
-export function setNotification(){
+export function setNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
-  //.then(JSON.parse())
-  .then((data) => {
-    if(data === null) Permissions.askAsync(Permissions.NOTIFICATIONS)
-        .then(({status}) => {
-          if(status === "granted") {
+    //.then(JSON.parse())
+    .then((data) => {
+      if (data === null) Permissions.askAsync(Permissions.NOTIFICATIONS)
+        .then(({ status }) => {
+          if (status === "granted") {
             Notifications.cancelAllScheduledNotificationsAsync()
             let nextDate = new Date(Date.now())
             nextDate.setHours(nextDate.getHours()) //TODO set hour to be a fixed hour
@@ -82,5 +100,5 @@ export function setNotification(){
             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
           }
         })
-  })
+    })
 }

@@ -11,9 +11,9 @@ import { connect } from 'react-redux'
 class AddCard extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
-        const { title } = navigation.state.params
+        //const { title } = navigation.state.params
         return ({
-            title: title.toString() + 'New Card'
+            title: 'New Card'
         })
     }
 
@@ -22,17 +22,17 @@ class AddCard extends React.Component {
         answer: ''
     }
 
-    addCard = ({ navigation }) => {
-        const { title } = navigation.state.params
+    addCard = () => {
         const { question, answer } = this.state
-        const { addQuestion, goBack } = this.props
+        const { addQuestion, goBack, title } = this.props
+        console.log(title)
         addCardToDeck(title, { question, answer })
             .then((result) => addQuestion(title, { question, answer }))
         goBack()
     }
 
     render() {
-        const { deck } = this.props
+        const { deck, navigation } = this.props
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.deck}>
                 <TextInput style={styles.input} autoCapitalize='sentences' autoFocus={true}
@@ -61,7 +61,6 @@ class AddCard extends React.Component {
 
 const styles = StyleSheet.create({
     deck: {
-        flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
@@ -82,7 +81,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(decks, { navigation }) {
     const { title } = navigation.state.params
     return {
-        deck: decks[title]
+        deck: decks[title],
+        title
     }
 }
 

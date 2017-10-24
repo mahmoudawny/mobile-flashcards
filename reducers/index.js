@@ -5,25 +5,19 @@ export function decks(state = {}, action) {
     const { decks, type, deck, question, title } = action
     switch (type) {
         case GET_DECK:
-            return {
-                state: state[title]
-            }
+            return  Object.assign({}, state[title])
+            
         case GET_DECKS:
             return decks
         case SET_TITLE:
-            return {
-                state: {
+            return  {
                     ...state,
                     [title]: {title, questions: []}
                 }
-            }
+            
         case ADD_QUESTION:
-            return {
-                state: {
-                    ...state,
-                    [deck]: questions.concat(question)
-                }
-            }
+            return  Object.assign({}, state[title] = {[title]: {title, questions: state[title].questions.concat(question)} })
+            
         default:
             return state
     }

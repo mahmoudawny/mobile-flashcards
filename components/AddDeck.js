@@ -28,7 +28,8 @@ class AddDeck extends React.Component {
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.deck}>
                 <TextInput style={styles.input} autoCapitalize='words' autoFocus={true}
-                    blurOnSubmit={true} maxLength={50} placeholder='Enter the title and click Add'
+                    blurOnSubmit={true} maxLength={50} 
+                    placeholder='Enter the title'
                     onSubmitEditing={() => this.add()}
                     onChangeText={(text) => this.setState({ title: text })}
                     value={this.state.title} />

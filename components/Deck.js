@@ -20,7 +20,7 @@ class Deck extends React.Component {
 
     render() {
         const { deck, navigation } = this.props
-        console.log(deck)
+        
         if(deck) return (
             <TouchableOpacity onPress={() =>
                 navigation.navigate('DeckDetails', {title: deck.title})}>
@@ -41,6 +41,12 @@ const styles = StyleSheet.create({
     deck: {
         alignItems: 'center',
         justifyContent: 'center',
+        width: 300,
+        borderRadius: 10,
+        borderWidth: 5,
+        borderStyle: 'solid' ,
+        borderColor: 'pink',
+        padding: 20
     },
     header: {
         fontSize: 20,

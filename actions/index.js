@@ -12,10 +12,10 @@ export function receiveDecks(decks){
     }
 }
 
-export function receiveDeck(key){
+export function receiveDeck(title){
     return {
         type: GET_DECK,
-        key
+        title
     }
 }
 
@@ -26,9 +26,10 @@ export function setTitle(title){
     }
 }
 
-export function addQuestion(question){
+export function addQuestion(title, question){
     return {
         type: ADD_QUESTION,
-        question
+        question,
+        title
     }
 }
