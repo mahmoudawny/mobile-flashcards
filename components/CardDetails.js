@@ -32,7 +32,6 @@ class CardDetails extends React.Component {
         const { questions } = this.props
         const { currentCard, ready, show } = this.state
         if (questions) {
-            console.log(questions.length)
             return (
                 <View style={styles.deck}>
                     <Text>{questions.length > 0 ?
