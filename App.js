@@ -15,6 +15,7 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
 
+//TODO: fix redux state on adding new items
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(
@@ -64,9 +65,7 @@ const Stack = StackNavigator({
   },
   DeckDetails: {
     screen: DeckDetails,
-    navigationOptions: {
-      title: ""
-    }
+    
   },
   AddCard: {
     screen: AddCard,

@@ -14,7 +14,8 @@ export function getDecks(){
 
 export function getDeck(key){
   return AsyncStorage.getItem(DECKS)
-  .then((res) => JSON.parse(res[key]))
+  .then((res) => {JSON.parse(res[JSON.stringify(key)])
+  console.log(JSON.parse(res[key]))})
 }
 
 export function saveDeckTitle(title){
