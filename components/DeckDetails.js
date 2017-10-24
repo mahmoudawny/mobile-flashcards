@@ -26,32 +26,32 @@ class DeckDetails extends React.Component {
     componentDidMount() {
         const { title } = this.props.navigation.state.params
         getDeck(title)
-            .then((deck) => this.props.receiveDeck(title))
+            .then((deck) => this.props.receiveDeck({ title, deck }))
             .then(() => this.setState({ ready: true }))
     }
 
     render() {
-        const {  navigation } = this.props
-        const {  decks } = this.props.decks
-        if (!this.state.ready && !decks)
-            <AppLoading />
-        
-        return (
-            <View style={styles.deck}>
-                <Text>{decks.title}</Text>
-                <Text>Number of questions: {decks.questions? decks.questions.length
-                    : 0}</Text>
-                <CardDetails questions={decks.questions? decks.questions : []} navigation={navigation}/>
-                <View style={styles.button}>
-                    <TouchableOpacity onPress={() =>
-                        navigation.navigate('AddCard', { title: decks.title})}>
-                        <Text>
-                            Add Question
+        const { navigation } = this.props
+        const { deck } = this.props
+        console.log(deck)
+        if (this.state.ready && deck)
+            return (
+                <View style={styles.deck}>
+                    <Text>{deck.title}</Text>
+                    <Text>Number of questions: {deck.questions ? deck.questions.length
+                        : 0}</Text>
+                    <CardDetails questions={deck.questions ? deck.questions : []} navigation={navigation} />
+                    <View style={styles.button}>
+                        <TouchableOpacity onPress={() =>
+                            navigation.navigate('AddCard', { title: deck.title })}>
+                            <Text>
+                                Add Question
                     </Text>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-        )
+            )
+        else return <AppLoading />
     }
 }
 
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
     },
 });
 
-function mapStateToProps(decks, { navigation }) {
+function mapStateToProps({deck}, { navigation }) {
     const { title } = navigation.state.params
     return {
-        decks,
+        deck,
         // title,
         // navigation
     }

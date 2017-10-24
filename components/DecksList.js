@@ -7,6 +7,8 @@ import { connect } from 'react-redux'
 import Deck from './Deck'
 import { receiveDecks } from '../actions'
 
+//TODO: make store auto update
+//TODO: Use section list for decks
 class DecksList extends React.Component {
 
     state = {
@@ -18,6 +20,12 @@ class DecksList extends React.Component {
             .then((result) => this.props.receiveDecks(result))
             .then(() => this.setState({ready: true}))
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     getDecks()
+    //         .then((result) => this.props.receiveDecks(result))
+    //         .then(() => this.setState({ready: true}))
+    // }
 
     render() {
         const { decks, navigation } = this.props

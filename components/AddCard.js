@@ -26,7 +26,7 @@ class AddCard extends React.Component {
         const { question, answer } = this.state
         const { addQuestion, goBack, title } = this.props
         addCardToDeck(title,  question, answer )
-            .then((result) => addQuestion(title,  question, answer ))
+            .then((result) => addQuestion({title,  question, answer} ))
         goBack()
     }
 

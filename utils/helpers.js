@@ -36,8 +36,6 @@ export function addCardToDeck(title, question, answer) {
       const datajs = JSON.parse(res)
       const data = datajs[title]
       const questions = data.questions.concat({question, answer})
-      console.log(data)
-      console.log(questions)
       AsyncStorage.mergeItem(DECKS,
         JSON.stringify({ [title]: {title, questions } }))
     })
