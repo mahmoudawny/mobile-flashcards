@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import AddCard from './AddCard'
 
 
-//Todo: get number of questions
 
 class Deck extends React.Component {
 
@@ -27,13 +26,13 @@ class Deck extends React.Component {
             
             <View style={styles.deck}>
                 <Text style={styles.header}>{deck.title}</Text>
-                <Text>Number of questions: {deck ?
+                <Text>Number of questions: {
                     deck.questions ? deck.questions.length : '0'
-                    : '0'}</Text>
+                    }</Text>
                               
             </View>
             </TouchableOpacity> )
-            else return <Text>No Deck</Text>
+            else return <Text>No Deck Found</Text>
     }
 }
 

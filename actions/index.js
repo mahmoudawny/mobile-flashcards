@@ -26,10 +26,11 @@ export function setTitle(title){
     }
 }
 
-export function addQuestion(title, question){
+export function addQuestion(title, question, answer){
     return {
         type: ADD_QUESTION,
         question,
+        answer,
         title
     }
 }

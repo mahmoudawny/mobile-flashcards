@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { ADD_QUESTION, GET_DECK, GET_DECKS, SET_TITLE } from '../actions'
 import React from 'react'
 export function decks(state = {}, action) {
-    const { decks, type, deck, question, title } = action
+    const { decks, type, question, answer, title } = action
     switch (type) {
         case GET_DECK:
             return  Object.assign({}, state[title])
@@ -16,7 +16,7 @@ export function decks(state = {}, action) {
                 }
             
         case ADD_QUESTION:
-            return  Object.assign({}, state[title] = {[title]: {title, questions: state[title].questions.concat(question)} })
+            return  Object.assign({}, state, {[title]: {title, questions: Object.assign({}, state[title].questions.concat({question, answer}))} })
             
         default:
             return state

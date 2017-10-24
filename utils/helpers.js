@@ -14,12 +14,11 @@ export function getDecks() {
 
 }
 
-export function getDeck(key) {
+export function getDeck(title) {
   return AsyncStorage.getItem(DECKS)
     .then((res) => {
       const data = JSON.parse(res)
-      return data[key]
-      console.log(data)
+      return data[title]
     })
 }
 
@@ -31,25 +30,26 @@ export function saveDeckTitle(title) {
     })
 }
 
-// export function addCardToDeck(title, question) {
+// export function addCardToDeck(title, question, answer) {
 //   return AsyncStorage.getItem(DECKS)
 //     .then((res) => {
-//       const data = JSON.parse(res[title])
+//       const data = res[title]
+//       const questions = data.questions.concat({question, answer})
+//       console.log(data)
+//       console.log(questions)
 //       AsyncStorage.mergeItem(DECKS,
-//         JSON.stringify({ [title]: { questions: data.questions.concat(question) } }),
+//         JSON.stringify({ [title]: {title, questions } }),
 //         (error) => {
 //           if (error) console.log("error adding card", error)
 //         })
-//     })
+//     }).catch((error) => console.log(error))
+    
 // }
 
 
-export function addCardToDeck(title, question) {
+export function addCardToDeck(title, question, answer) {
   return AsyncStorage.mergeItem(DECKS,
-        JSON.stringify({ [title]: {title, 'questions': [question] } }),
-        (error) => {
-          if (error) console.log("error adding card", error)
-        })
+        JSON.stringify({ [title]: {title, questions: [{question, answer}] } }))
 }
 
 export function deleteAll() {

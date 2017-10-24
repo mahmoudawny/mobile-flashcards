@@ -39,8 +39,9 @@ class DeckDetails extends React.Component {
         return (
             <View style={styles.deck}>
                 <Text>{decks.title}</Text>
-                <Text>Number of questions: {decks.questions.length}</Text>
-                    <CardDetails navigation={navigation}/>
+                <Text>Number of questions: {decks.questions? decks.questions.length
+                    : 0}</Text>
+                <CardDetails questions={decks.questions? decks.questions : []} navigation={navigation}/>
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() =>
                         navigation.navigate('AddCard', { title: decks.title})}>

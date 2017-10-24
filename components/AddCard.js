@@ -11,9 +11,9 @@ import { connect } from 'react-redux'
 class AddCard extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
-        //const { title } = navigation.state.params
+        const { title } = navigation.state.params
         return ({
-            title: 'New Card'
+            title
         })
     }
 
@@ -25,9 +25,8 @@ class AddCard extends React.Component {
     addCard = () => {
         const { question, answer } = this.state
         const { addQuestion, goBack, title } = this.props
-        console.log(title)
-        addCardToDeck(title, { question, answer })
-            .then((result) => addQuestion(title, { question, answer }))
+        addCardToDeck(title,  question, answer )
+            .then((result) => addQuestion(title,  question, answer ))
         goBack()
     }
 
@@ -40,7 +39,7 @@ class AddCard extends React.Component {
                     placeholder='Enter the question'
                     onChangeText={(text) => this.setState({ question: text })}
                     value={this.state.question}
-                    //onSubmitEditing={() => this.addCard()} 
+                    //onSubmitEditing={() => this.addCard()} //set focus to next input
                     />
                 <TextInput style={styles.input} autoCapitalize='sentences'
                     blurOnSubmit={true} maxLength={100}

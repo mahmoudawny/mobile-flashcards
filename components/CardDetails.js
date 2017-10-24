@@ -11,7 +11,7 @@ class CardDetails extends React.Component {
 
     state = {
         ready: false,
-        currentCard: 1,
+        currentCard: 0,
         show: 'q'
     }
 
@@ -23,32 +23,42 @@ class CardDetails extends React.Component {
     // }
 
     flip = () => {
-        if(this.state.show === 'q')
-            this.setState({show: 'a'})
-        else this.setState({show: 'q'})
+        if (this.state.show === 'q')
+            this.setState({ show: 'a' })
+        else this.setState({ show: 'q' })
     }
 
     render() {
         const { questions } = this.props
-        const {currentCard, ready, show} = this.state
-        if (!ready)
-            return <AppLoading />
-        return (
-            <View style={styles.deck}>
-                <Text>{currentCard}/{questions.length}</Text>
-                {show === 'q' ?
-                <Text>{show}:{questions[currentCard].question}</Text>
-                : <Text>{questions[currentCard].answer}</Text>}
-                <View style={styles.button}>
-                    <TouchableOpacity onPress={() =>
-                        this.flip()}>
-                        <Text>
-                            Flip
-                        </Text>
-                    </TouchableOpacity>
+        const { currentCard, ready, show } = this.state
+        if (questions) {
+            console.log(questions.length)
+            return (
+                <View style={styles.deck}>
+                    <Text>{questions.length > 0 ?
+                        currentCard + 1
+                        : 0}/{questions.length}</Text>
+                    {questions.length > 0 ?
+                        <View>
+                            {show === 'q' ?
+                                <Text>Q:{questions[currentCard].question}</Text>
+                                : <Text>A:{questions[currentCard].answer}</Text>}
+                            <View style={styles.button}>
+                                <TouchableOpacity onPress={() =>
+                                    this.flip()}>
+                                    <Text>
+                                        Flip
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        : <Text>Start adding questions to the deck!</Text>
+                    }
+
                 </View>
-            </View>
-        )
+            )
+        }
+        else return <AppLoading />
     }
 }
 
