@@ -1,3 +1,4 @@
+// DecksList component to render a list of Deck components
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
 import { StackNavigator } from 'react-navigation'

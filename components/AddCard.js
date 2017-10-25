@@ -1,3 +1,4 @@
+// AddCard component to render the Add Card form
 import React from 'react'
 import { TextInput, StyleSheet, Text, View, TouchableOpacity,
 KeyboardAvoidingView } from 'react-native'

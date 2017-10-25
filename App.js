@@ -1,3 +1,4 @@
+// Main App renderer. Calls StackNavigator with DecksList component as default screen
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native'
 import { StackNavigator } from 'react-navigation'
@@ -28,7 +29,7 @@ class App extends React.Component {
       <Provider store={store}>
         <View style={styles.app}>
           <View style={styles.statusBar}>
-            <StatusBar translucent backgroundColor='pink' barStyle='dark-content' />
+            <StatusBar translucent  barStyle='light-content' />
           </View>
           <Text style={styles.header}>Welcome to Flashcards</Text>
           <Stack  />
@@ -47,14 +48,12 @@ const Stack = StackNavigator({
     navigationOptions: {
       title: "Home",
       headerTitleStyle: {
-        
-
+        // TODO: style title
       }
     }
   },
   Deck: {
     screen: Deck,
-
   },
   AddDeck: {
     screen: AddDeck,
@@ -82,10 +81,9 @@ const styles = StyleSheet.create({
   },
   statusBar: {
     height: 25,
-    backgroundColor: 'pink'
+    backgroundColor: 'rgb(200,2,200)'
   },
   container: {
-    //flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-around',

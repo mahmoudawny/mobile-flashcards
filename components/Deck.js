@@ -1,3 +1,4 @@
+// Deck component to display the main information of a card deck in a list of Decks
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { StackNavigator } from 'react-navigation'
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
     deck: {
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#fff',
         width: 300,
         borderRadius: 10,
         borderWidth: 5,

@@ -1,3 +1,4 @@
+// DeckDetails component to display the main information of a deck and render CardDetails component
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { StackNavigator } from 'react-navigation'
@@ -44,9 +45,9 @@ class DeckDetails extends React.Component {
                     <View style={styles.button}>
                         <TouchableOpacity onPress={() =>
                             navigation.navigate('AddCard', { title: deck.title })}>
-                            <Text>
+                            <Text style={styles.buttonText}>
                                 Add Question
-                    </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -63,14 +64,18 @@ const styles = StyleSheet.create({
         padding: 10
     },
     button: {
-        backgroundColor: '#aba',
+        backgroundColor: '#998',
         borderRadius: 10,
         padding: 10,
         margin: 10
     },
+    buttonText: {
+        color: 'white',
+        fontSize: 16
+    },
 });
 
-function mapStateToProps({deck}, { navigation }) {
+function mapStateToProps({ deck }, { navigation }) {
     const { title } = navigation.state.params
     return {
         deck,

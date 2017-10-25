@@ -1,3 +1,4 @@
+// Combined reducer to provide two states: Decks and Current Deck
 import { combineReducers } from 'redux'
 import { ADD_QUESTION, GET_DECK, GET_DECKS, SET_TITLE } from '../actions'
 import React from 'react'
