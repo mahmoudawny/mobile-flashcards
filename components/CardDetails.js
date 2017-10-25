@@ -7,6 +7,7 @@ import { getDeck, addCardToDeck } from '../utils/helpers'
 import { connect } from 'react-redux'
 import AddCard from './AddCard'
 import { receiveDeck, addQuestion } from '../actions'
+import { Ionicons } from '@expo/vector-icons'
 
 class CardDetails extends React.Component {
 
@@ -47,10 +48,33 @@ class CardDetails extends React.Component {
             Animated.spring(this.animatedValue, { toValue: 90, duration: 500 }).start()
             this.setState({ show: 'a' })
         }
-        else {            
+        else {
             Animated.spring(this.animatedValue, { toValue: 0, duration: 500 }).start()
             this.setState({ show: 'q' })
         }
+
+    }
+
+    prevQuestion = () => {
+        const { currentCard } = this.state
+        this.setState({
+            currentCard: currentCard > 0 ? currentCard - 1
+                : 0,
+            show: 'q'
+        })
+        Animated.spring(this.animatedValue, { toValue: 0, duration: 500 }).start()
+        
+    }
+
+    nextQuestion = () => {
+        const { currentCard } = this.state
+        const { questions } = this.props
+        this.setState({
+            currentCard: currentCard < questions.length ? currentCard + 1
+                : currentCard,
+            show: 'q'
+        })
+        Animated.spring(this.animatedValue, { toValue: 0, duration: 500 }).start()
         
     }
 
@@ -60,15 +84,30 @@ class CardDetails extends React.Component {
         if (questions) {
             return (
                 <View style={styles.deck}>
-                    <Text style={styles.numberText}>{questions.length > 0 ?
-                        currentCard + 1
-                        : 0}/{questions.length}</Text>
+                    <View style={styles.cardNav}>
+                        <TouchableOpacity
+                            onPress={this.prevQuestion}
+                            disabled={currentCard > 0 ? false : true}
+                        >
+                            <Ionicons name='ios-arrow-dropleft-circle' style={styles.numberText} />
+                        </TouchableOpacity>
+                        <Text style={styles.numberText}>{questions.length > 0 ?
+                            currentCard + 1
+                            : 0}/{questions.length}</Text>
+                        <TouchableOpacity
+                            onPress={this.nextQuestion}
+                            disabled={currentCard < questions.length ? false : true}
+                        >
+                            <Ionicons name='ios-arrow-dropright-circle' style={styles.numberText} />
+                        </TouchableOpacity>
+
+                    </View>
                     {questions.length > 0 ?
                         <View style={styles.card}>
                             {show === 'q' ?
-                                <Animated.Text style={[styles.cardText, { transform: [{ rotateY: this.rotateQ }]}]}>
+                                <Animated.Text style={[styles.cardText, { transform: [{ rotateY: this.rotateQ }] }]}>
                                     Q: {questions[currentCard].question}</Animated.Text>
-                                : <Animated.Text style={[styles.cardText, { transform: [{ rotateY: this.rotateA }]}]}>
+                                : <Animated.Text style={[styles.cardText, { transform: [{ rotateY: this.rotateA }] }]}>
                                     A: {questions[currentCard].answer}</Animated.Text>}
                             <View style={styles.button}>
                                 <TouchableOpacity onPress={() =>
@@ -79,7 +118,7 @@ class CardDetails extends React.Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        : <Text >Start adding questions to the deck!</Text>
+                        : <Text >Start adding questions to card deck!</Text>
                     }
 
                 </View>
@@ -94,6 +133,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 10
+    },
+    cardNav: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        margin: 10,
+        width: 300,
         padding: 10
     },
     card: {
@@ -122,7 +169,8 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
         alignItems: 'center',
-        
+        justifyContent: 'center',
+        height: 30
     },
 });
 
