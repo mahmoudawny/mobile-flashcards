@@ -29,7 +29,7 @@ class App extends React.Component {
       <Provider store={store}>
         <View style={styles.app}>
           <View style={styles.statusBar}>
-            <StatusBar translucent  barStyle='light-content' />
+            <StatusBar   barStyle='light-content' />
           </View>
           <Text style={styles.header}>Welcome to Flashcards</Text>
           <Stack  />

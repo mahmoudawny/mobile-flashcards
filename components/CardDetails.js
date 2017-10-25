@@ -63,19 +63,19 @@ class CardDetails extends React.Component {
             show: 'q'
         })
         Animated.spring(this.animatedValue, { toValue: 0, duration: 500 }).start()
-        
+
     }
 
     nextQuestion = () => {
         const { currentCard } = this.state
         const { questions } = this.props
         this.setState({
-            currentCard: currentCard < questions.length ? currentCard + 1
+            currentCard: currentCard < questions.length - 1 ? currentCard + 1
                 : currentCard,
             show: 'q'
         })
         Animated.spring(this.animatedValue, { toValue: 0, duration: 500 }).start()
-        
+
     }
 
     render() {
@@ -85,20 +85,26 @@ class CardDetails extends React.Component {
             return (
                 <View style={styles.deck}>
                     <View style={styles.cardNav}>
-                        <TouchableOpacity
+                        <TouchableOpacity                            
                             onPress={this.prevQuestion}
                             disabled={currentCard > 0 ? false : true}
                         >
-                            <Ionicons name='ios-arrow-dropleft-circle' style={styles.numberText} />
+                            <Ionicons 
+                            color={currentCard > 0 ? 'rgb(20,2,200)': 'pink'}
+                            size={30}
+                             name='ios-arrow-dropleft-circle'/>
                         </TouchableOpacity>
                         <Text style={styles.numberText}>{questions.length > 0 ?
                             currentCard + 1
                             : 0}/{questions.length}</Text>
                         <TouchableOpacity
                             onPress={this.nextQuestion}
-                            disabled={currentCard < questions.length ? false : true}
+                            disabled={currentCard < questions.length - 1 ? false : true}
                         >
-                            <Ionicons name='ios-arrow-dropright-circle' style={styles.numberText} />
+                            <Ionicons 
+                            color={currentCard < questions.length - 1 ? 'rgb(20,2,200)': 'pink'}
+                            size={30}
+                            name='ios-arrow-dropright-circle' />
                         </TouchableOpacity>
 
                     </View>
@@ -158,6 +164,9 @@ const styles = StyleSheet.create({
     numberText: {
         color: 'rgb(20,2,200)',
         fontSize: 20
+    },
+    arrow: {
+        color: 'rgb(20,2,200)',
     },
     buttonText: {
         color: 'white',
