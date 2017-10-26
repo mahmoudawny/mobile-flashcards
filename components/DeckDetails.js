@@ -47,6 +47,14 @@ class DeckDetails extends React.Component {
                             </Text>
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.button}>
+                        <TouchableOpacity onPress={() =>
+                            navigation.navigate('QuizScreen', { title: "Quiz", questions: deck.questions })}>
+                            <Text style={styles.buttonText}>
+                                Start a Quiz
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             )
         else return <AppLoading />

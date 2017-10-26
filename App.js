@@ -14,10 +14,12 @@ import AddCard from './components/AddCard'
 import Deck from './components/Deck'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
+import QuizScreen from './components/QuizScreen'
 
-
-//TODO: Add Correct/Incorrect buttons to cards
-//TODO: Add notification
+//TODO: Add notification, finishing any quiz should clear today's notification
+//TODO: Add button and card shadows
+//TODO: Add ios and android specific styles
+//TODO: Add animation for opening a deck
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(
@@ -48,9 +50,6 @@ const Stack = StackNavigator({
     screen: DecksList,
     navigationOptions: {
       title: "Home",
-      headerTitleStyle: {
-        // TODO: style title
-      }
     }
   },
   Deck: {
@@ -71,6 +70,12 @@ const Stack = StackNavigator({
     screen: AddCard,
     navigationOptions: {
       title: "New Card"
+    }
+  },
+  QuizScreen: {
+    screen: QuizScreen,
+    navigationOptions: {
+      title: "Quiz"
     }
   },
 })

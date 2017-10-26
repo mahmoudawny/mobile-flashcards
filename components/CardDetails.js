@@ -174,17 +174,5 @@ const styles = StyleSheet.create({
     },
 });
 
-// function mapStateToProps(state) {
-//     const { title } = this.props.navigation.state.params
-//     return {
-//         deck: state[title]
-//     }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         receiveDeck: (data) => dispatch(receiveDeck(data))
-//     }
-// }
 
 export default connect()(CardDetails)
