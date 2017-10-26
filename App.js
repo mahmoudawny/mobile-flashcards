@@ -7,7 +7,7 @@ import DecksList from './components/DecksList'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { createStore, compose, applyMiddleware } from 'redux'
-import { getDecks } from './utils/helpers'
+import { setNotification } from './utils/helpers'
 import AddDeck from './components/AddDeck'
 import DeckDetails from './components/DeckDetails'
 import AddCard from './components/AddCard'
@@ -16,7 +16,6 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import QuizScreen from './components/QuizScreen'
 
-//TODO: Add notification, finishing any quiz should clear today's notification
 //TODO: Add button and card shadows
 //TODO: Add ios and android specific styles
 //TODO: Add animation for opening a deck
@@ -27,12 +26,16 @@ applyMiddleware(thunk), applyMiddleware(logger)))
 
 class App extends React.Component {
 
+  componentDidMount(){
+    setNotification()
+  }
+
   render() {
     return (
       <Provider store={store}>
         <View style={styles.app}>
           <View style={styles.statusBar}>
-            <StatusBar   barStyle='light-content' />
+            <StatusBar barStyle='light-content' />
           </View>
           <Text style={styles.header}>Welcome to Flashcards</Text>
           <Stack  />

@@ -3,7 +3,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
-import { getDeck, addCardToDeck } from '../utils/helpers'
+import { clearNotifications } from '../utils/helpers'
 import { connect } from 'react-redux'
 import AddCard from './AddCard'
 import { receiveDeck, addQuestion } from '../actions'
@@ -62,10 +62,12 @@ class QuizScreen extends React.Component {
     nextQuestion = () => {
         const { currentCard } = this.state
         const { questions } = this.props.navigation.state.params
-        if (currentCard === questions.length - 1)
+        if (currentCard === questions.length - 1){
             this.setState({
                 end: true
             })
+            clearNotifications()
+        }
         else {
             this.setState({
                 currentCard: currentCard < questions.length - 1 ? currentCard + 1

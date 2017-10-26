@@ -1,3 +1,4 @@
+// helper methods to manage data storage and notifications
 import React from 'react'
 import {
   StyleSheet, Text, View, TouchableOpacity,
@@ -43,11 +44,6 @@ export function addCardToDeck(title, question, answer) {
 }
 
 
-// export function addCardToDeck(title, question, answer) {
-//   return AsyncStorage.mergeItem(DECKS,
-//         JSON.stringify({ [title]: {title, questions: [{question, answer}] } }))
-// }
-
 export function deleteAll() {
   return AsyncStorage.setItem(DECKS,
     JSON.stringify({}),
@@ -64,8 +60,8 @@ export function clearNotifications() {
 
 function createNotification() {
   return {
-    title: "Log today's data",
-    body: "don't forget to log your data today!",
+    title: "Today's Quiz",
+    body: "Did you test yourself today?!",
     ios: {
       sound: true
     },
@@ -73,7 +69,7 @@ function createNotification() {
       sound: true,
       priority: 'high',
       sticky: false,
-      vibrate: true
+      vibrate: false
     }
   }
 }
@@ -87,7 +83,7 @@ export function setNotification() {
           if (status === "granted") {
             Notifications.cancelAllScheduledNotificationsAsync()
             let nextDate = new Date(Date.now())
-            nextDate.setHours(nextDate.getHours()) //TODO set hour to be a fixed hour
+            nextDate.setHours(nextDate.getHours()) //TODO set date to tomorrow and set hour to be a fixed hour
             nextDate.setMinutes(nextDate.getMinutes() + 1)
             Notifications.scheduleLocalNotificationAsync(createNotification(), {
               time: nextDate,
