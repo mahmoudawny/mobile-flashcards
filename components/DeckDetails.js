@@ -9,12 +9,10 @@ import AddCard from './AddCard'
 import { receiveDeck, addQuestion } from '../actions'
 import CardDetails from './CardDetails'
 
-//TODO: render Decks as list and check the need to create a second stack for Deck and DeckDetails
 class DeckDetails extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
         const { title } = navigation.state.params
-
         return ({
             title: title.toString()
         })
@@ -34,7 +32,6 @@ class DeckDetails extends React.Component {
     render() {
         const { navigation } = this.props
         const { deck } = this.props
-        console.log(deck)
         if (this.state.ready && deck)
             return (
                 <View style={styles.deck}>
@@ -76,11 +73,8 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps({ deck }, { navigation }) {
-    const { title } = navigation.state.params
     return {
         deck,
-        // title,
-        // navigation
     }
 }
 

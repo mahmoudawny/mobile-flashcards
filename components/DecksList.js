@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import Deck from './Deck'
 import { receiveDecks } from '../actions'
 
-//TODO: make store auto update
 //TODO: Use section list for decks
 class DecksList extends React.Component {
 
@@ -19,20 +18,24 @@ class DecksList extends React.Component {
     componentDidMount() {
         getDecks()
             .then((result) => this.props.receiveDecks(result))
-            .then(() => this.setState({ready: true}))
+            .then(() => this.setState({ ready: true }))
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     getDecks()
-    //         .then((result) => this.props.receiveDecks(result))
-    //         .then(() => this.setState({ready: true}))
-    // }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.changed)
+            getDecks()
+                .then((result) => {
+                    this.setState({ ready: false })
+                    this.props.receiveDecks(result)
+                })
+                .then(() => this.setState({ ready: true }))
+    }
 
     render() {
         const { decks, navigation } = this.props
-        const {ready} = this.state
-        if(ready === false) {
-          return <AppLoading/>
+        const { ready } = this.state
+        if (ready === false) {
+            return <AppLoading />
         }
         return (
             <View style={styles.decks}>
@@ -45,7 +48,7 @@ class DecksList extends React.Component {
                     Object.keys(decks).map((deck) =>
                         <Deck deck={decks[deck]} navigation={navigation} key={deck} />)
                     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>}
-                
+
                 <View style={styles.addDeck}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('AddDeck')}>
                         <Text style={{ fontSize: 20, color: 'white' }}>Add</Text>
@@ -61,11 +64,11 @@ class DecksList extends React.Component {
                     data={decks}
                     renderItem={(item) => <Deck deck={decks[item]} navigation={navigation} key={item} />
                      } > */}
-                // {decks ?
-                //     Object.keys(decks).map((deck) =>
-                //         <Deck deck={deck} questions={deck} navigation={navigation} key={deck} />)
-                //     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>}
-                
+// {decks ?
+//     Object.keys(decks).map((deck) =>
+//         <Deck deck={deck} questions={deck} navigation={navigation} key={deck} />)
+//     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>}
+
 
 const styles = StyleSheet.create({
     decks: {
@@ -89,8 +92,8 @@ const styles = StyleSheet.create({
     }
 });
 
-function mapStateToProps({ decks }) {
-    return {decks}
+function mapStateToProps({ decks, changed }) {
+    return { decks, changed }
 }
 
 function mapDispatchToProps(dispatch) {

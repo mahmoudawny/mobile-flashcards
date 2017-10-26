@@ -16,7 +16,8 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
 
-//TODO: fix redux state on adding new items
+//TODO: Add Correct/Incorrect buttons to cards
+//TODO: Add notification
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(

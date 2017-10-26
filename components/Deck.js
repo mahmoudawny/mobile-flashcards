@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import AddCard from './AddCard'
 
 
-
 class Deck extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
@@ -57,17 +56,5 @@ const styles = StyleSheet.create({
       },
 });
 
-// function mapStateToProps(state, {navigation}) {
-//     const { title } = navigation.state.params
-//     return {
-//         deck: state[title]
-//     }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         getDeck: (data) => dispatch(getDeck(data))
-//     }
-// }
 
 export default connect()(Deck)

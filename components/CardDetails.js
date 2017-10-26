@@ -12,18 +12,9 @@ import { Ionicons } from '@expo/vector-icons'
 class CardDetails extends React.Component {
 
     state = {
-        ready: false,
         currentCard: 0,
         show: 'q',
     }
-
-    // componentDidMount() {
-    //     const { title } = this.props.navigation.state.params
-    //     getDeck(title)
-    //         .then((deck) => this.props.receiveDeck(title))
-    //         .then(() => this.setState({ ready: true }))
-    // }
-
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(0);
@@ -80,7 +71,7 @@ class CardDetails extends React.Component {
 
     render() {
         const { questions } = this.props
-        const { currentCard, ready, show } = this.state
+        const { currentCard,  show } = this.state
         if (questions) {
             return (
                 <View style={styles.deck}>

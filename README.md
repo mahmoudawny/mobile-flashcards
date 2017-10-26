@@ -7,7 +7,7 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 ### Home View
 
 1- A list of Decks to choose from. Initially empty.
-2- Add new deck button.
+2- Add new deck button to add decks to native storage.
 
 ### Add Deck View
 
@@ -15,18 +15,17 @@ Enter a title for the Deck and save.
 
 ### Deck View
 
-1- Click a deck to open it in Deck view.
-2- The first card with a question will be displayed.
-3- Add button to add more question and answer cards.
+1- Click a deck to open it in Deck Details view.
+2- When Q&A cards are added, the first question will be displayed.
+3- Add button to add question and answer cards.
 4- Number of questions available as well as current question index.
-5- Show Answer button to see the answer.
-6- Show Question button to see the question.
-7- Correct and Incorrect buttons to check own answer.
+5- Click Flip button to see the answer, and again to return to question.
+6- Correct and Incorrect buttons to check own answer.
 
 ### Add Card View
 
 1- Fields to enter a question and its answer.
-2- Add button to save the card.
+2- Add button to save the card in the selected deck.
 
 ### Notification
 
