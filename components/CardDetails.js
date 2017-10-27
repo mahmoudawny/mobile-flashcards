@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
         margin: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 30
+        height: 40
     },
 });
 

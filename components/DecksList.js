@@ -39,7 +39,7 @@ class DecksList extends React.Component {
         }
         return (
             <View style={styles.decks}>
-                <View>
+                <View style={{display: 'none'}}>
                     <TouchableOpacity onPress={() => deleteAll()}>
                         <Text style={{ fontSize: 20, color: 'white' }}>Delete All</Text>
                     </TouchableOpacity>

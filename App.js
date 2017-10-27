@@ -17,8 +17,6 @@ import thunk from 'redux-thunk'
 import QuizScreen from './components/QuizScreen'
 
 //TODO: Add button and card shadows
-//TODO: Add ios and android specific styles
-//TODO: Add animation for opening a deck
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(

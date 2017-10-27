@@ -1,6 +1,6 @@
 // DeckDetails component to display the main information of a deck and render CardDetails component
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
 import { getDeck, addCardToDeck } from '../utils/helpers'
@@ -19,7 +19,9 @@ class DeckDetails extends React.Component {
     }
 
     state = {
-        ready: false
+        ready: false,
+        height: new Animated.Value(0),
+        opacity: new Animated.Value(0),
     }
 
     componentDidMount() {
@@ -27,14 +29,18 @@ class DeckDetails extends React.Component {
         getDeck(title)
             .then((deck) => this.props.receiveDeck({ title, deck }))
             .then(() => this.setState({ ready: true }))
+        const {  height, opacity } = this.state
+        Animated.timing(opacity, { toValue: 1, duration: 1000 }).start()
+        Animated.spring(height, { toValue: 400, speed: 1 }).start()
     }
 
     render() {
         const { navigation } = this.props
         const { deck } = this.props
+        const {  height, opacity } = this.state
         if (this.state.ready && deck)
             return (
-                <View style={styles.deck}>
+                <Animated.View style={[styles.deck, { height, opacity}]}>
                     <Text>{deck.title}</Text>
                     <Text>Number of questions: {deck.questions ? deck.questions.length
                         : 0}</Text>
@@ -55,7 +61,7 @@ class DeckDetails extends React.Component {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </Animated.View>
             )
         else return <AppLoading />
     }
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     button: {
-        backgroundColor: '#998',
+        backgroundColor: '#996',
         borderRadius: 10,
         padding: 10,
         margin: 10

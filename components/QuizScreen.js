@@ -1,6 +1,9 @@
 // QuizScreen to run a quiz and show score of correct answers
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native'
+import {
+    StyleSheet, Text, View, TouchableOpacity,
+    Animated, Platform
+} from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
 import { clearNotifications } from '../utils/helpers'
@@ -62,7 +65,7 @@ class QuizScreen extends React.Component {
     nextQuestion = () => {
         const { currentCard } = this.state
         const { questions } = this.props.navigation.state.params
-        if (currentCard === questions.length - 1){
+        if (currentCard === questions.length - 1) {
             this.setState({
                 end: true
             })
@@ -108,7 +111,7 @@ class QuizScreen extends React.Component {
                                 <TouchableOpacity onPress={() =>
                                     this.flip()}>
                                     <Text style={styles.buttonText}>
-                                        {show==='q'? 'Answer' : 'Question'}
+                                        {show === 'q' ? 'Answer' : 'Question'}
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -118,18 +121,16 @@ class QuizScreen extends React.Component {
                                         disabled={end ? true : false}
                                         onPress={() =>
                                             this.setCorrect()}>
-                                        <FontAwesome style={styles.correct}
-                                            size={30}
-                                            name='check-circle'
+                                        <FontAwesome style={Platform.OS == 'ios' ? styles.correctIOS : styles.correct}
+                                            name={Platform.OS == 'ios' ? 'check-square' : 'check-circle'}
                                         />
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         disabled={end ? true : false}
                                         onPress={() =>
                                             this.setFalse()}>
-                                        <Entypo style={styles.incorrect}
-                                            size={30}
-                                            name='circle-with-cross'
+                                        <Entypo style={Platform.OS == 'ios' ? styles.incorrectIOS : styles.incorrect}
+                                            name={Platform.OS == 'ios' ? 'squared-cross' : 'circle-with-cross'}
                                         />
                                     </TouchableOpacity>
                                 </View>}
@@ -142,23 +143,24 @@ class QuizScreen extends React.Component {
                                 Your Score: {100 * correct / questions.length} %
                             </Text>
                             <View style={styles.resultButtons}>
-                                <TouchableOpacity
-                                    onPress={() => this.props.goBack()}
-                                    disabled={end ? false : true}
-                                >
-                                    <MaterialCommunityIcons
-                                        style={styles.back}
-                                        size={30}
-                                        name='arrow-left-bold-circle-outline' />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() =>
-                                    this.restart()}>
-                                    <Ionicons style={styles.resultText}
-                                        size={40}
-                                        name='md-refresh'
-                                    />
-                                </TouchableOpacity>
-
+                                <View style={styles.resultButton}>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.goBack()}
+                                        disabled={end ? false : true}
+                                    >
+                                        <MaterialCommunityIcons
+                                            style={Platform.OS == 'ios' ? styles.backIOS : styles.back}
+                                            name='arrow-left-bold-circle-outline' />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.resultButton}>
+                                    <TouchableOpacity onPress={() =>
+                                        this.restart()}>
+                                        <Ionicons style={Platform.OS == 'ios' ? styles.restartIOS : styles.restart}
+                                            name='md-refresh'
+                                        />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     }
@@ -216,6 +218,16 @@ const styles = StyleSheet.create({
         color: 'red',
         fontSize: 40
     },
+    correctIOS: {
+        color: 'green',
+        fontSize: 40,
+        width: 100
+    },
+    incorrectIOS: {
+        color: 'red',
+        fontSize: 40,
+        width: 100
+    },
     button: {
         backgroundColor: 'rgb(20,2,200)',
         borderRadius: 10,
@@ -251,17 +263,44 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
     },
+    resultButton: {
+        flexDirection: 'row',
+        backgroundColor: '#996',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: 10,
+        borderRadius: 10,
+        margin: 10,
+        width: 60,
+    },
     resultText: {
         color: '#fff',
         fontSize: 30
     },
     restart: {
         color: '#fff',
-        fontSize: 40
+        fontSize: 40,
+        textAlign: 'center',
     },
     back: {
         color: '#fff',
-        fontSize: 40
+        fontSize: 40,
+        textAlign: 'center',
+    },
+    restartIOS: {
+        color: '#fff',
+        fontSize: 40,
+        textAlign: 'center',
+        width: 60,
+        height: 30
+    },
+    backIOS: {
+        color: '#fff',
+        fontSize: 40,
+        textAlign: 'center',
+        width: 60,
+        height: 30
     },
 });
 
