@@ -83,8 +83,11 @@ export function setNotification() {
           if (status === "granted") {
             Notifications.cancelAllScheduledNotificationsAsync()
             let nextDate = new Date(Date.now())
-            nextDate.setHours(nextDate.getHours()) //TODO set date to tomorrow and set hour to be a fixed hour
-            nextDate.setMinutes(nextDate.getMinutes() + 1)
+            // If the hour is past 8pm schedule the notification for next day 
+            if(nextDate.getHours() >= 20 ) nextDate.setDate(nextDate.getDate() + 1)
+            nextDate.setHours(20) 
+            nextDate.setMinutes(0)
+            console.log(nextDate.getDate())
             Notifications.scheduleLocalNotificationAsync(createNotification(), {
               time: nextDate,
               repeat: "day"

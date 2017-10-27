@@ -29,7 +29,7 @@ class DeckDetails extends React.Component {
         getDeck(title)
             .then((deck) => this.props.receiveDeck({ title, deck }))
             .then(() => this.setState({ ready: true }))
-        const {  height, opacity } = this.state
+        const { height, opacity } = this.state
         Animated.timing(opacity, { toValue: 1, duration: 1000 }).start()
         Animated.spring(height, { toValue: 400, speed: 1 }).start()
     }
@@ -37,10 +37,10 @@ class DeckDetails extends React.Component {
     render() {
         const { navigation } = this.props
         const { deck } = this.props
-        const {  height, opacity } = this.state
+        const { height, opacity } = this.state
         if (this.state.ready && deck)
             return (
-                <Animated.View style={[styles.deck, { height, opacity}]}>
+                <Animated.View style={[styles.deck, { height, opacity }]}>
                     <Text>{deck.title}</Text>
                     <Text>Number of questions: {deck.questions ? deck.questions.length
                         : 0}</Text>
@@ -72,13 +72,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 10
+        padding: 10,
+        margin: 5
     },
     button: {
         backgroundColor: '#996',
         borderRadius: 10,
         padding: 10,
-        margin: 10
+        margin: 10,
+        elevation: 5
     },
     buttonText: {
         color: 'white',

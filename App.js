@@ -16,7 +16,7 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import QuizScreen from './components/QuizScreen'
 
-//TODO: Add button and card shadows
+//TODO: Add validation messages 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(

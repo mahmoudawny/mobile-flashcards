@@ -46,13 +46,16 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         borderStyle: 'solid' ,
         borderColor: 'pink',
-        padding: 20
+        padding: 20,
+        margin: 8,
+        elevation: 5
     },
     header: {
         fontSize: 20,
         backgroundColor: '#eee',
         borderRadius: 10,
-        padding: 10
+        padding: 10,
+        margin: 5
       },
 });
 

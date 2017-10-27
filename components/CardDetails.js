@@ -71,19 +71,19 @@ class CardDetails extends React.Component {
 
     render() {
         const { questions } = this.props
-        const { currentCard,  show } = this.state
+        const { currentCard, show } = this.state
         if (questions) {
             return (
                 <View style={styles.deck}>
                     <View style={styles.cardNav}>
-                        <TouchableOpacity                            
+                        <TouchableOpacity
                             onPress={this.prevQuestion}
                             disabled={currentCard > 0 ? false : true}
                         >
-                            <Ionicons 
-                            color={currentCard > 0 ? 'rgb(20,2,200)': 'pink'}
-                            size={30}
-                             name='ios-arrow-dropleft-circle'/>
+                            <Ionicons
+                                color={currentCard > 0 ? 'rgb(20,2,200)' : '#ddd'}
+                                size={30}
+                                name='ios-arrow-dropleft-circle' />
                         </TouchableOpacity>
                         <Text style={styles.numberText}>{questions.length > 0 ?
                             currentCard + 1
@@ -92,10 +92,10 @@ class CardDetails extends React.Component {
                             onPress={this.nextQuestion}
                             disabled={currentCard < questions.length - 1 ? false : true}
                         >
-                            <Ionicons 
-                            color={currentCard < questions.length - 1 ? 'rgb(20,2,200)': 'pink'}
-                            size={30}
-                            name='ios-arrow-dropright-circle' />
+                            <Ionicons
+                                color={currentCard < questions.length - 1 ? 'rgb(20,2,200)' : '#ddd'}
+                                size={30}
+                                name='ios-arrow-dropright-circle' />
                         </TouchableOpacity>
 
                     </View>
@@ -130,7 +130,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 10
+        padding: 10,
+        margin: 5,
+        borderRadius: 3,
+        elevation: 2
     },
     cardNav: {
         flexDirection: 'row',
@@ -170,7 +173,8 @@ const styles = StyleSheet.create({
         margin: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 40
+        height: 40,
+        elevation: 5
     },
 });
 

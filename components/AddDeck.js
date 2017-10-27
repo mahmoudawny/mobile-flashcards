@@ -17,25 +17,29 @@ class AddDeck extends React.Component {
 
     add = () => {
 
-        if (this.state.title)
+        if (this.state.title) {
             saveDeckTitle(this.state.title)
                 .then((result) => this.props.addDeck(this.state.title))
-        this.props.goBack()
+            this.props.goBack()
+        }
     }
 
     render() {
         const { deck } = this.props
+        const { title } = this.state
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.deck}>
                 <TextInput style={styles.input} autoCapitalize='words' autoFocus={true}
-                    blurOnSubmit={true} maxLength={50} 
+                    blurOnSubmit={true} maxLength={50}
                     placeholder='Enter the title'
                     onSubmitEditing={() => this.add()}
+                    clearButtonMode='always'
                     onChangeText={(text) => this.setState({ title: text })}
                     value={this.state.title} />
-                <View style={styles.addDeck}>
-                    <TouchableOpacity onPress={() => this.add()}>
-                        <Text>Add</Text>
+                <View style={title ? styles.addDeck : styles.disableAdd}>
+                    <TouchableOpacity onPress={() => this.add()}
+                        disabled={title ? false : true}>
+                        <Text style={{ fontSize: 20, color: 'white' }}>Save</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -52,13 +56,22 @@ const styles = StyleSheet.create({
     input: {
         width: 320,
         fontSize: 30,
-        textAlign: 'center'
+        textAlign: 'center',
+        padding: 10
     },
     addDeck: {
-        backgroundColor: '#aba',
+        backgroundColor: '#996',
         borderRadius: 10,
         padding: 10,
-        margin: 10
+        margin: 10,
+        elevation: 5
+    },
+    disableAdd: {
+        backgroundColor: '#ddd',
+        borderRadius: 10,
+        padding: 10,
+        margin: 10,
+        elevation: 0
     },
 });
 

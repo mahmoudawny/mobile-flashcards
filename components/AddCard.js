@@ -1,7 +1,9 @@
 // AddCard component to render the Add Card form
 import React from 'react'
-import { TextInput, StyleSheet, Text, View, TouchableOpacity,
-KeyboardAvoidingView } from 'react-native'
+import {
+    TextInput, StyleSheet, Text, View, TouchableOpacity,
+    KeyboardAvoidingView
+} from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
 import { addQuestion, receiveDeck } from '../actions'
@@ -24,34 +26,45 @@ class AddCard extends React.Component {
     }
 
     addCard = () => {
+
         const { question, answer } = this.state
         const { addQuestion, goBack, title } = this.props
-        addCardToDeck(title,  question, answer )
-            .then((result) => addQuestion({title,  question, answer} ))
-        goBack()
+        if (question && answer) {
+            addCardToDeck(title, question, answer)
+                .then((result) => addQuestion({ title, question, answer }))
+            goBack()
+        }
     }
 
     render() {
         const { deck, navigation } = this.props
+        const { question, answer } = this.state
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.deck}>
-                <TextInput style={styles.input} autoCapitalize='sentences' autoFocus={true}
-                    blurOnSubmit={true} maxLength={100} 
+                <TextInput style={styles.input} autoCapitalize='sentences'
+                    autoFocus={true}
+                    required={true}
+                    returnKeyType='next'
+                    clearButtonMode='always'
+                    blurOnSubmit={true} maxLength={100}
                     placeholder='Enter the question'
                     onChangeText={(text) => this.setState({ question: text })}
                     value={this.state.question}
-                    //onSubmitEditing={() => this.addCard()} //set focus to next input
-                    />
+                    onSubmitEditing={() => this.refs.answer.focus()} //set focus to next input
+                />
                 <TextInput style={styles.input} autoCapitalize='sentences'
                     blurOnSubmit={true} maxLength={100}
+                    ref='answer'
+                    clearButtonMode='always'
                     placeholder='Enter the answer'
                     onChangeText={(text) => this.setState({ answer: text })}
                     value={this.state.answer}
                     onSubmitEditing={() => this.addCard()}
                 />
-                <View style={styles.addCard}>
-                    <TouchableOpacity onPress={this.addCard}>
-                        <Text>Add</Text>
+                <View style={question && answer ? styles.addCard : styles.disableAdd}>
+                    <TouchableOpacity onPress={this.addCard}
+                        disabled={question && answer ? false : true}>
+                        <Text style={{ fontSize: 20, color: 'white' }}>Save</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -68,13 +81,22 @@ const styles = StyleSheet.create({
     input: {
         width: 320,
         fontSize: 30,
-        textAlign: 'center'
+        textAlign: 'center',
+        padding: 10
     },
     addCard: {
-        backgroundColor: '#aba',
+        backgroundColor: '#996',
         borderRadius: 10,
         padding: 10,
-        margin: 10
+        margin: 10,
+        elevation: 5
+    },
+    disableAdd: {
+        backgroundColor: '#ddd',
+        borderRadius: 10,
+        padding: 10,
+        margin: 10,
+        elevation: 0
     },
 });
 

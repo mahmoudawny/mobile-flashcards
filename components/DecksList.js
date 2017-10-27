@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import Deck from './Deck'
 import { receiveDecks } from '../actions'
 
-//TODO: Use section list for decks
 class DecksList extends React.Component {
 
     state = {
@@ -45,13 +44,21 @@ class DecksList extends React.Component {
                     </TouchableOpacity>
                 </View>
                 {decks ?
-                    Object.keys(decks).map((deck) =>
-                        <Deck deck={decks[deck]} navigation={navigation} key={deck} />)
+                <FlatList 
+                    data={Object.keys(decks)}
+                    extraData= {this.props.decks}
+                    keyExtractor={(item, index) => item}
+                    renderItem={({item}) => <Deck 
+                    deck={this.props.decks[item]} 
+                    navigation={navigation} 
+                    
+                     />
+                     } />                                   
                     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>}
 
                 <View style={styles.addDeck}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('AddDeck')}>
-                        <Text style={{ fontSize: 20, color: 'white' }}>Add</Text>
+                        <Text style={{ fontSize: 20, color: 'white' }}>Add Deck</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -60,31 +67,28 @@ class DecksList extends React.Component {
 }
 
 
-{/* <FlatList style={styles.deckList}
-                    data={decks}
-                    renderItem={(item) => <Deck deck={decks[item]} navigation={navigation} key={item} />
-                     } > */}
-// {decks ?
-//     Object.keys(decks).map((deck) =>
-//         <Deck deck={deck} questions={deck} navigation={navigation} key={deck} />)
-//     : <Text style={styles.message}>You haven't created any decks yet. Click Add to create your first!</Text>}
-
-
 const styles = StyleSheet.create({
     decks: {
+        flex: 1,
         backgroundColor: '#ddd',
         alignItems: 'center',
         justifyContent: 'center',
     },
     deckList: {
         margin: 10,
-        //justifyContent: 'center',
+        justifyContent: 'space-around',
+        elevation: 5
+    },
+    deck: {
+        margin: 10,
+        elevation: 5
     },
     addDeck: {
-        backgroundColor: '#998',
+        backgroundColor: '#996',
         borderRadius: 10,
         padding: 10,
-        margin: 10
+        margin: 10,
+        elevation: 5
     },
     message: {
         textAlign: 'center',
