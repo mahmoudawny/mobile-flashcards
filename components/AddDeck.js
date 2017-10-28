@@ -3,9 +3,7 @@ import {
     TextInput, StyleSheet, Text, View,
     KeyboardAvoidingView, TouchableOpacity
 } from 'react-native'
-import { StackNavigator } from 'react-navigation'
-import { AppLoading } from 'expo'
-import { setTitle, getDeck } from '../actions'
+import { setTitle } from '../actions'
 import { saveDeckTitle } from '../utils/helpers'
 import { connect } from 'react-redux'
 

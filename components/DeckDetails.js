@@ -1,12 +1,11 @@
 // DeckDetails component to display the main information of a deck and render CardDetails component
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native'
-import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
-import { getDeck, addCardToDeck } from '../utils/helpers'
+import { getDeck } from '../utils/helpers'
 import { connect } from 'react-redux'
 import AddCard from './AddCard'
-import { receiveDeck, addQuestion } from '../actions'
+import { receiveDeck } from '../actions'
 import CardDetails from './CardDetails'
 
 class DeckDetails extends React.Component {

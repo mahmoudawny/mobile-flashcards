@@ -4,12 +4,10 @@ import {
     StyleSheet, Text, View, TouchableOpacity,
     Animated, Platform
 } from 'react-native'
-import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
 import { clearNotifications } from '../utils/helpers'
 import { connect } from 'react-redux'
 import AddCard from './AddCard'
-import { receiveDeck, addQuestion } from '../actions'
 import { Ionicons, FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
 
 class QuizScreen extends React.Component {

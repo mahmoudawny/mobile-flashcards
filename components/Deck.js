@@ -1,11 +1,7 @@
 // Deck component to display the main information of a card deck in a list of Decks
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { StackNavigator } from 'react-navigation'
-import { AppLoading } from 'expo'
-import { getDeck } from '../utils/helpers'
 import { connect } from 'react-redux'
-import AddCard from './AddCard'
 
 
 class Deck extends React.Component {

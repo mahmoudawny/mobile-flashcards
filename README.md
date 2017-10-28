@@ -28,7 +28,7 @@ Enter a title for the Deck and save.
 1- Read the questions and try to answer them.
 2- Click Answer to see the answer.
 3- Click Correct or Incorrect buttons to mark your answer.
-4- Click Next to attempt the next question.
+4- The next question is shown after marking the previous one.
 5- The score is displayed on answering the last question.
 6- Restart Quiz and Back buttons are displayed after the last question as well.
 

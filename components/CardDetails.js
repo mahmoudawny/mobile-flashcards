@@ -3,10 +3,8 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { AppLoading } from 'expo'
-import { getDeck, addCardToDeck } from '../utils/helpers'
 import { connect } from 'react-redux'
 import AddCard from './AddCard'
-import { receiveDeck, addQuestion } from '../actions'
 import { Ionicons } from '@expo/vector-icons'
 
 class CardDetails extends React.Component {

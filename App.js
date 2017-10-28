@@ -1,8 +1,8 @@
 // Main App renderer. Calls StackNavigator with DecksList component as default screen
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native'
+import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-import { AppLoading, Constants } from 'expo'
+import { Constants } from 'expo'
 import DecksList from './components/DecksList'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
@@ -17,8 +17,9 @@ import thunk from 'redux-thunk'
 import QuizScreen from './components/QuizScreen'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhancers(
-applyMiddleware(thunk), applyMiddleware(logger)))
+const store = createStore(reducer)
+//   , composeEnhancers(
+// applyMiddleware(thunk), applyMiddleware(logger)))
 
 class App extends React.Component {
 

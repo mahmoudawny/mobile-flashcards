@@ -4,10 +4,8 @@ import {
     TextInput, StyleSheet, Text, View, TouchableOpacity,
     KeyboardAvoidingView
 } from 'react-native'
-import { StackNavigator } from 'react-navigation'
-import { AppLoading } from 'expo'
-import { addQuestion, receiveDeck } from '../actions'
-import { addCardToDeck, getDeck } from '../utils/helpers'
+import { addQuestion } from '../actions'
+import { addCardToDeck } from '../utils/helpers'
 import { connect } from 'react-redux'
 
 
@@ -111,7 +109,6 @@ function mapStateToProps(decks, { navigation }) {
 function mapDispatchToProps(dispatch, { navigation }) {
 
     return {
-        receiveDeck: (data) => dispatch(receiveDeck(data)),
         addQuestion: (data) => dispatch(addQuestion(data)),
         goBack: () => navigation.goBack()
     }
