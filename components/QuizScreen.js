@@ -221,12 +221,10 @@ const styles = StyleSheet.create({
     correctIOS: {
         color: 'green',
         fontSize: 40,
-        width: 100
     },
     incorrectIOS: {
         color: 'red',
         fontSize: 40,
-        width: 100
     },
     button: {
         backgroundColor: 'rgb(20,2,200)',
@@ -244,7 +242,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         width: 200
     },
     result: {
@@ -272,6 +270,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 10,
         width: 60,
+        elevation: 5
     },
     resultText: {
         color: '#fff',

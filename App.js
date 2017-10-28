@@ -2,7 +2,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-import { AppLoading } from 'expo'
+import { AppLoading, Constants } from 'expo'
 import DecksList from './components/DecksList'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
@@ -15,8 +15,6 @@ import Deck from './components/Deck'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import QuizScreen from './components/QuizScreen'
-
-//TODO: Add validation messages 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(
@@ -87,7 +85,7 @@ const styles = StyleSheet.create({
 
   },
   statusBar: {
-    height: 25,
+    height: Constants.statusBarHeight,
     backgroundColor: 'rgb(200,2,200)'
   },
   container: {
