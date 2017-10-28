@@ -19,6 +19,7 @@ class DecksList extends React.Component {
             .then(() => this.setState({ ready: true }))
     }
 
+// check if state is changed to get new state
     componentWillReceiveProps(nextProps) {
         if (nextProps.changed)
             getDecks()

@@ -24,6 +24,7 @@ class DeckDetails extends React.Component {
     }
 
     componentDidMount() {
+        // Get selected deck details and animate
         const { title } = this.props.navigation.state.params
         getDeck(title)
             .then((deck) => this.props.receiveDeck({ title, deck }))

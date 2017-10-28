@@ -20,6 +20,7 @@ class QuizScreen extends React.Component {
     }
 
     componentWillMount() {
+        // Flip Animation value interpolation
         this.animatedValue = new Animated.Value(0);
         this.value = 0;
         this.animatedValue.addListener(({ value }) => {
@@ -35,7 +36,7 @@ class QuizScreen extends React.Component {
         })
     }
 
-
+// flip function to animate question and answer flipping and set state
     flip = () => {
 
         if (this.state.show === 'q') {
@@ -49,6 +50,7 @@ class QuizScreen extends React.Component {
 
     }
 
+// setCorrect function to count correct answers, set state and get next question  
     setCorrect = () => {
         this.setState({
             correct: this.state.correct + 1
@@ -56,19 +58,23 @@ class QuizScreen extends React.Component {
         this.nextQuestion()
     }
 
+// setFalse function to get next question  
     setFalse = () => {
         this.nextQuestion()
     }
 
+// nextQuestion function to get next question  
     nextQuestion = () => {
         const { currentCard } = this.state
         const { questions } = this.props.navigation.state.params
+        // If quiz is finished set state and clear today's notification if any
         if (currentCard === questions.length - 1) {
             this.setState({
                 end: true
             })
             clearNextNotification()
         }
+        // If questions remain, display next
         else {
             this.setState({
                 currentCard: currentCard < questions.length - 1 ? currentCard + 1
@@ -79,6 +85,7 @@ class QuizScreen extends React.Component {
         }
     }
 
+// restart function to reset state  
     restart = () => {
         this.setState({
             currentCard: 0,
@@ -87,6 +94,7 @@ class QuizScreen extends React.Component {
             end: false
         })
     }
+
     render() {
         const { questions } = this.props.navigation.state.params
         const { currentCard, show, correct, end } = this.state
@@ -235,7 +243,6 @@ const styles = StyleSheet.create({
     },
     buttons: {
         flexDirection: 'row',
-        //backgroundColor: 'rgb(20,15,200)',
         borderRadius: 10,
         padding: 10,
         margin: 10,
@@ -252,7 +259,6 @@ const styles = StyleSheet.create({
     },
     resultButtons: {
         flexDirection: 'row',
-        //backgroundColor: '#aba',
         width: 200,
         alignItems: 'center',
         justifyContent: 'space-around',

@@ -24,7 +24,6 @@ class AddCard extends React.Component {
     }
 
     addCard = () => {
-
         const { question, answer } = this.state
         const { addQuestion, goBack, title } = this.props
         if (question && answer) {

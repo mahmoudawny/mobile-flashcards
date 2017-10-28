@@ -14,7 +14,6 @@ class AddDeck extends React.Component {
     }
 
     add = () => {
-
         if (this.state.title) {
             saveDeckTitle(this.state.title)
                 .then((result) => this.props.addDeck(this.state.title))

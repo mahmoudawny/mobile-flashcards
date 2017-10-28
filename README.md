@@ -39,7 +39,8 @@ Enter a title for the Deck and save.
 
 ### Notification
 
-The App sends a daily notification at a fixed time to remind users to study!
+* The App sends a daily notification at a fixed time to remind users to study.
+* Today's notification will be cleared if at least one quiz is finished.
 
 ## Installation
 

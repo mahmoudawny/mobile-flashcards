@@ -1,7 +1,9 @@
-// Combined reducer to provide the states: Decks and Current Deck and Changed status
+// Combined reducer to provide the states: All Decks, Current Deck and isChanged status
+import React from 'react'
 import { combineReducers } from 'redux'
 import { ADD_QUESTION, GET_DECK, GET_DECKS, SET_TITLE } from '../actions'
-import React from 'react'
+
+// All Decks
 export function decks(state = {ready: true}, action) {
     const { decks, type, question, answer, title } = action
     switch (type) {
@@ -21,6 +23,7 @@ export function decks(state = {ready: true}, action) {
     }
 }
 
+// Current Deck
 export function deck(state = {}, action) {
     const { deck, type, question, answer, title } = action
     switch (type) {
@@ -35,6 +38,7 @@ export function deck(state = {}, action) {
     }
 }
 
+// isChanged?
 export function changed(state = false, action) {
     const { type } = action
     switch (type) {

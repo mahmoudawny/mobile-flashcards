@@ -61,7 +61,6 @@ export function clearNotifications() {
 export function clearNextNotification() {
   AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(() => {
-      Notifications.cancelAllScheduledNotificationsAsync()
       AsyncStorage.getItem(NOTIFICATION_KEY)
         .then((data) => {
           if (data === null) Permissions.askAsync(Permissions.NOTIFICATIONS)
@@ -114,7 +113,7 @@ export function setNotification() {
             nextDate.setMinutes(0)
             Notifications.scheduleLocalNotificationAsync(createNotification(), {
               time: nextDate,
-              repeat: "hour"
+              repeat: "day"
             })
             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
           }

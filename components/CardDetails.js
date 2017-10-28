@@ -15,6 +15,7 @@ class CardDetails extends React.Component {
     }
 
     componentWillMount() {
+        // Flip Animation value interpolation
         this.animatedValue = new Animated.Value(0);
         this.value = 0;
         this.animatedValue.addListener(({ value }) => {
@@ -30,7 +31,7 @@ class CardDetails extends React.Component {
         })
     }
 
-
+// flip function to animate question and answer flipping and set state
     flip = () => {
 
         if (this.state.show === 'q') {
@@ -44,6 +45,7 @@ class CardDetails extends React.Component {
 
     }
 
+// prevQuestion function to get previous question  
     prevQuestion = () => {
         const { currentCard } = this.state
         this.setState({
@@ -52,9 +54,9 @@ class CardDetails extends React.Component {
             show: 'q'
         })
         Animated.spring(this.animatedValue, { toValue: 0, duration: 500 }).start()
-
     }
 
+// nextQuestion function to get next question  
     nextQuestion = () => {
         const { currentCard } = this.state
         const { questions } = this.props
@@ -64,7 +66,6 @@ class CardDetails extends React.Component {
             show: 'q'
         })
         Animated.spring(this.animatedValue, { toValue: 0, duration: 500 }).start()
-
     }
 
     render() {
@@ -95,7 +96,6 @@ class CardDetails extends React.Component {
                                 size={30}
                                 name='ios-arrow-dropright-circle' />
                         </TouchableOpacity>
-
                     </View>
                     {questions.length > 0 ?
                         <View style={styles.card}>
@@ -115,7 +115,6 @@ class CardDetails extends React.Component {
                         </View>
                         : <Text >Start adding questions to card deck!</Text>
                     }
-
                 </View>
             )
         }
