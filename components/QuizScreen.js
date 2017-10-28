@@ -5,7 +5,7 @@ import {
     Animated, Platform
 } from 'react-native'
 import { AppLoading } from 'expo'
-import { clearNotifications } from '../utils/helpers'
+import { clearNextNotification } from '../utils/helpers'
 import { connect } from 'react-redux'
 import AddCard from './AddCard'
 import { Ionicons, FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -67,7 +67,7 @@ class QuizScreen extends React.Component {
             this.setState({
                 end: true
             })
-            clearNotifications()
+            clearNextNotification()
         }
         else {
             this.setState({

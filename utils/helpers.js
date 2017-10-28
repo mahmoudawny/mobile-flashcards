@@ -58,6 +58,32 @@ export function clearNotifications() {
     .then(() => Notifications.cancelAllScheduledNotificationsAsync())
 }
 
+export function clearNextNotification() {
+  AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(() => {
+      Notifications.cancelAllScheduledNotificationsAsync()
+      AsyncStorage.getItem(NOTIFICATION_KEY)
+        .then((data) => {
+          if (data === null) Permissions.askAsync(Permissions.NOTIFICATIONS)
+            .then(({ status }) => {
+              if (status === "granted") {
+                Notifications.cancelAllScheduledNotificationsAsync()
+                let nextDate = new Date(Date.now())
+                // set notification to tomorrow
+                nextDate.setDate(nextDate.getDate() + 1)
+                nextDate.setHours(18)
+                nextDate.setMinutes(0)
+                Notifications.scheduleLocalNotificationAsync(createNotification(), {
+                  time: nextDate,
+                  repeat: "day"
+                })
+                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+              }
+            })
+        })
+    })
+}
+
 function createNotification() {
   return {
     title: "Today's Quiz",
@@ -76,21 +102,19 @@ function createNotification() {
 
 export function setNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
-    //.then(JSON.parse())
     .then((data) => {
       if (data === null) Permissions.askAsync(Permissions.NOTIFICATIONS)
         .then(({ status }) => {
           if (status === "granted") {
             Notifications.cancelAllScheduledNotificationsAsync()
             let nextDate = new Date(Date.now())
-            // If the hour is past 8pm schedule the notification for next day 
-            if(nextDate.getHours() >= 20 ) nextDate.setDate(nextDate.getDate() + 1)
-            nextDate.setHours(20) 
+            // If the hour is past 6pm schedule the notification for next day 
+            if(nextDate.getHours() >= 18 ) nextDate.setDate(nextDate.getDate() + 1)
+            nextDate.setHours(18) 
             nextDate.setMinutes(0)
-            console.log(nextDate.getDate())
             Notifications.scheduleLocalNotificationAsync(createNotification(), {
               time: nextDate,
-              repeat: "day"
+              repeat: "hour"
             })
             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
           }
